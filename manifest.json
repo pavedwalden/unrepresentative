@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "Unrepresentative",
+  "version": "1.0.0",
+  "description": "Hides posts from US governors, senators, and representatives on X.com",
+  "permissions": ["storage"],
+  "host_permissions": [
+    "https://x.com/*",
+    "https://twitter.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://x.com/*", "https://twitter.com/*"],
+      "js": ["officials.js", "content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Unrepresentative"
+  }
+}

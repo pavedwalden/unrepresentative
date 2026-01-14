@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Generate Unrepresentative Icons</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      padding: 20px;
+      background: #1a1a1a;
+      color: #fff;
+    }
+    canvas {
+      border: 1px solid #333;
+      margin: 10px;
+    }
+    .icon-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin: 20px 0;
+    }
+    a {
+      color: #1d9bf0;
+      padding: 10px 20px;
+      background: #333;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+    a:hover {
+      background: #444;
+    }
+    h1 {
+      color: #e7e9ea;
+    }
+    p {
+      color: #71767b;
+    }
+  </style>
+</head>
+<body>
+  <h1>Unrepresentative Icon Generator</h1>
+  <p>Right-click each icon and save as the indicated filename.</p>
+
+  <div class="icon-row">
+    <div>
+      <canvas id="icon16" width="16" height="16"></canvas>
+      <p>icon16.png</p>
+    </div>
+    <div>
+      <canvas id="icon48" width="48" height="48"></canvas>
+      <p>icon48.png</p>
+    </div>
+    <div>
+      <canvas id="icon128" width="128" height="128"></canvas>
+      <p>icon128.png</p>
+    </div>
+  </div>
+
+  <script>
+    function drawIcon(canvas) {
+      const ctx = canvas.getContext('2d');
+      const size = canvas.width;
+      const scale = size / 128;
+
+      // Background - dark gray
+      ctx.fillStyle = '#15202b';
+      ctx.beginPath();
+      ctx.arc(size/2, size/2, size/2, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Red "no" circle
+      ctx.strokeStyle = '#f4212e';
+      ctx.lineWidth = 8 * scale;
+      ctx.beginPath();
+      ctx.arc(size/2, size/2, size/2 - 12 * scale, 0, Math.PI * 2);
+      ctx.stroke();
+
+      // Red diagonal line
+      ctx.beginPath();
+      ctx.moveTo(size * 0.2, size * 0.8);
+      ctx.lineTo(size * 0.8, size * 0.2);
+      ctx.stroke();
+
+      // Capitol dome silhouette (simplified)
+      ctx.fillStyle = '#71767b';
+      const cx = size / 2;
+      const cy = size / 2;
+
+      // Base
+      ctx.fillRect(cx - 25 * scale, cy + 10 * scale, 50 * scale, 15 * scale);
+
+      // Dome
+      ctx.beginPath();
+      ctx.arc(cx, cy + 10 * scale, 20 * scale, Math.PI, 0);
+      ctx.fill();
+
+      // Spire
+      ctx.fillRect(cx - 3 * scale, cy - 20 * scale, 6 * scale, 15 * scale);
+    }
+
+    drawIcon(document.getElementById('icon16'));
+    drawIcon(document.getElementById('icon48'));
+    drawIcon(document.getElementById('icon128'));
+  </script>
+</body>
+</html>
